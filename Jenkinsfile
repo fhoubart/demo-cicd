@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                echo 'TODO Publish..'
+                archiveArtifacts '/target/*.jar'
             }
         }
         
@@ -18,6 +18,12 @@ pipeline {
     post {
         always {
             junit '**/surefire-reports/*.xml'
+            recordIssues(
+    enabledForFailure: true, 
+    tool: java(pattern: '*.log'), 
+    filters: [includeFile('MyFile.*.java'), excludeCategory('WHITESPACE')]
+)
+            
         }
 
     }
