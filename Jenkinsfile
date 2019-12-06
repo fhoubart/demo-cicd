@@ -4,7 +4,14 @@ pipeline {
     stages {
         stage('Package') {
             steps {
+            	sh 'mvn clean'
                 sh 'mvn package' 
+            }
+        }
+        stage('Analyse') {
+            steps {
+            	sh 'mvn checkstyle:checkstyle'
+                sh 'mvn spotbugs:spotbugs' 
             }
         }
         stage('Publish') {
