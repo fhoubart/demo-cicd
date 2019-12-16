@@ -11,7 +11,8 @@ pipeline {
         stage('Analyse') {
             steps {
             	sh 'mvn checkstyle:checkstyle'
-                sh 'mvn spotbugs:spotbugs' 
+                sh 'mvn spotbugs:spotbugs'
+                sh 'mvn pmd:pmd' 
             }
         }
         stage('Publish') {
